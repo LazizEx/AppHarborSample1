@@ -17,5 +17,24 @@ namespace AppHarborSample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_BeginRequest()
+        {
+            if (!Context.Request.IsSecureConnection)
+                Response.Redirect(Context.Request.Url.ToString().Replace("http:", "https:"));
+        }
+    }
+
+    public class SSLFilter : ActionFilterAttribute
+    {
+
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (!filterContext.HttpContext.Request.IsSecureConnection)
+            {
+                var url = filterContext.HttpContext.Request.Url.ToString().Replace("http:", "https:");
+                filterContext.Result = new RedirectResult(url);
+            }
+        }
     }
 }
