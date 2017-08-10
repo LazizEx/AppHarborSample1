@@ -15,7 +15,7 @@ namespace AppHarborSample.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.hhhhhhhhhhhh";
+            ViewBag.Message = "Your application description page.hhhhhhhhhhbvbnvhh";
 
             return View();
         }
